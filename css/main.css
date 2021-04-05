@@ -1,0 +1,15 @@
+.selected {
+    background-color: #87cdde;
+}
+
+html[data-theme="dark"] .selected {
+    background-color: #216778;
+}
+
+.reason, .semester {
+  cursor: pointer;
+}
+
+body {
+    margin-bottom: 5rem;
+}

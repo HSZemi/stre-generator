@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Antragsgenerator für die Semesterticket-Rückerstattung</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Antragsgenerator für die Semesterticket-Rückerstattung">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hszemi.github.io/stre-generator">
+    <meta property="og:image" content="https://hszemi.github.io/stre-generator/tile-wide.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" type="text/css" href="css/minstyle.io.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta name="theme-color" content="#217867">
+</head>
+
+<body>
+<div class="container">
+    <h1>Antrag auf Erstattung des Mobilitätsbeitrages (Semesterticket)</h1>
+
+    <p>Der Beitrag für das Semesterticket kann aus unterschiedlichen Gründen erstattet werden.</p>
+
+    <hr>
+
+    <h4><span class="ms-label ms-info">Schritt 1 von 3</span> Für welches Semester möchtest du eine Erstattung
+        beantragen?</h4>
+
+    <p>Wähle ein Semester aus, indem du es anklickst.</p>
+
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div id="semester-wise-2020" class="ms-card ms-border semester"
+                 onclick="selectSemester('wise-2020')">
+                <div class="ms-card-content">
+                    Wintersemester 2020/21
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="semester-sose-2021" class="ms-card ms-border semester"
+                 onclick="selectSemester('sose-2021')">
+                <div class="ms-card-content">
+                    Sommersemester 2021
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h4><span class="ms-label ms-info">Schritt 2 von 3</span> Warum möchtest du eine Erstattung beantragen?</h4>
+
+    <p>Wähle einen Erstattungsgrund aus, indem du ihn anklickst.</p>
+
+    <h5>Praktische Gründe</h5>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-verspaetete-immatrikulation" class="ms-card ms-border reason"
+                 onclick="selectReason('verspaetete-immatrikulation')">
+                <div class="ms-card-title">
+                    <b>Verspätete Immatrikulation</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Falls du dich erst nach Semesterbeginn immatrikuliert hast, konntest du das Semesterticket eine
+                        Zeit lang nicht nutzen.
+                        Für diesen Anteil des Semesters bekommst du dein Geld zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-exmatrikulation" class="ms-card ms-border reason" onclick="selectReason('exmatrikulation')">
+                <div class="ms-card-title">
+                    <b>Exmatrikulation</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Falls du dich vor Ende des Semesters exmatrikuliert hast, kannst du das Semesterticket für den
+                        Rest des Semesters nicht nutzen.
+                        Für diesen Anteil des Semesters bekommst du dein Geld zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5>Soziale Gründe</h5>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-beduerftigkeit" class="ms-card ms-border reason" onclick="selectReason('beduerftigkeit')">
+                <div class="ms-card-title">
+                    <b>Bedürftigkeit</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer im Monat weniger als 90 % des Grundbedarfs von BaFöG-Empfänger*innen zur Verfügung hat
+                        (aktuell also weniger als 384,30 €), kann mit einer vollen Rückerstattung rechnen, ansonsten mit
+                        einer Teilerstattung.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <h5>Semesterticket ist nicht brauchbar</h5>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-schwerbehinderung" class="ms-card ms-border reason"
+                 onclick="selectReason('schwerbehinderung')">
+                <div class="ms-card-title">
+                    <b>Schwerbehinderung</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer wegen einer Schwerbehinderung
+                        den öffentlichen Personennahverkehr (ÖPNV) nicht nutzen kann,
+                        den ÖPNV kostenfrei nutzen kann oder
+                        für wen die Nutzung des ÖPNV unzumutbar ist,
+                        bekommt das Geld für das Semesterticket zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-vrs-jobticket-vorhanden" class="ms-card ms-border reason"
+                 onclick="selectReason('vrs-jobticket-vorhanden')">
+                <div class="ms-card-title">
+                    <b>VRS-Jobticket vorhanden</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer wegen eines bereits vorhandenen VRS-Jobtickets keine Verwendung für das Semesterticket hat,
+                        bekommt den Anteil für das VRS-Ticket erstattet.
+                        Gilt das Jobticket auch für den Bereich des NRW-Tickets, kann dieser Anteil ebenfalls erstattet
+                        werden.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5>Aufenthalt außerhalb des Vertragsgebiets</h5>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-aav-studienbedingt" class="ms-card ms-border reason"
+                 onclick="selectReason('aav-studienbedingt')">
+                <div class="ms-card-title">
+                    <b>studienbedingt</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer sich studienbedingt <b>für mindestens drei Monate</b> außerhalb des Vertragsgebiets aufhält,
+                        bekommt die Kosten für das Semesterticket anteilig zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-aav-meisterschaft" class="ms-card ms-border reason"
+                 onclick="selectReason('aav-meisterschaft')">
+                <div class="ms-card-title">
+                    <b>wegen Meisterschaft</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer sich zur Vorbereitung auf und Teilnahme an anerkannten Meisterschaften außerhalb des
+                        Vertragsgebiets aufhält, bekommt die Kosten für das Semesterticket anteilig zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-aav-promotion" class="ms-card ms-border reason" onclick="selectReason('aav-promotion')">
+                <div class="ms-card-title">
+                    <b>Promotion</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer sich während der eigenen Promotion außerhalb des Vertragsgebiets aufhält, bekommt die
+                        Kosten
+                        für das Semesterticket anteilig zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-aav-abschlussarbeit" class="ms-card ms-border reason"
+                 onclick="selectReason('aav-abschlussarbeit')">
+                <div class="ms-card-title">
+                    <b>Abschlussarbeit</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer sich während der Anfertigung der eigenen Abschlussarbeit außerhalb des Vertragsgebiets
+                        aufhält, bekommt die Kosten für das Semesterticket anteilig zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div id="reason-aav-familiaere-gruende" class="ms-card ms-border reason"
+                 onclick="selectReason('aav-familiaere-gruende')">
+                <div class="ms-card-title">
+                    <b>wegen dringender familiärer Gründe</b>
+                </div>
+                <div class="ms-card-content">
+                    <p>
+                        Wer sich wegen dringender familiärer Gründe außerhalb des Vertragsgebiets aufhält, bekommt
+                        die
+                        Kosten für das Semesterticket anteilig zurück.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h4><span class="ms-label ms-info">Schritt 3 von 3</span> Deine Daten</h4>
+
+    <p>Du musst natürlich sagen, wer du bist, und auf welches Konto das Geld überwiesen werden soll, falls dir etwas
+        erstattet wird.</p>
+
+    <h5>Wer bist du?</h5>
+
+    <p>An die E-Mail-Adresse wird der Bescheid geschickt.</p>
+
+    <div class="col-sm">
+        <div class="ms-form-group">
+            <label for="input-name">Vor- und Nachname</label>
+            <input type="text" placeholder="Friedrich Wilhelm von Preußen" id="input-name">
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="ms-form-group">
+            <label for="input-email">E-Mail-Adresse</label>
+            <input type="email" placeholder="friedrich.wilhelm@uni-bonn.de" id="input-email">
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="ms-form-group">
+            <label for="input-address">amtliche Meldeadresse</label>
+            <textarea rows=3 type="text" placeholder="Regina-Pacis-Weg 3&#10;53111 Bonn" id="input-address"></textarea>
+        </div>
+        <div class="ms-form-group-inline">
+            <input type="checkbox" id="input-send-decision-to-address">
+            <label for="input-send-decision-to-address">Ich möchte einen schriftlichen Bescheid an meine Meldeadresse
+                geschickt bekommen</label>
+        </div>
+    </div>
+
+
+    <h5>Auf welches Konto soll das Geld überwiesen werden?</h5>
+
+    <p>Natürlich erhältst du nur Geld überwiesen, wenn dein Antrag angenommen wird.</p>
+
+    <div class="col-sm">
+        <div class="ms-form-group">
+            <label for="input-name">Kontoinhaber*in</label>
+            <input type="text" placeholder="Elisabeth Christine Ulrike von Braunschweig-Wolfenbüttel"
+                   id="input-bank-name">
+        </div>
+    </div>
+
+    <div class="col-sm">
+        <div class="ms-form-group">
+            <label for="input-name">IBAN</label>
+            <input type="text" placeholder="DE07 1234 1234 1234 1234 12" id="input-iban">
+        </div>
+    </div>
+
+    <div class="col-sm">
+        <div class="ms-form-group">
+            <label for="input-name">BIC</label>
+            <input type="text" placeholder="RBOSGGSX" id="input-bic">
+        </div>
+    </div>
+
+    <hr>
+
+    <h4>Antrag erstellen</h4>
+
+    <p>Klicke auf den folgenden Knopf, um einen Antrag aus den eingegebenen Daten zu erstellen.
+        Diesen kannst du dann ausdrucken, unterschreiben, und uns per Post zusenden.<br>
+        Ja, wir sind voll digitalisiert 🤪</p>
+
+    <button class="ms-btn ms-large" onclick="createApplication()">Erstelle meinen Antrag, damit ich ihn ausdrucken und per Post schicken kann</button>
+
+</div>
+<script src="js/pdfmake.min.js"></script>
+<script src='js/vfs_fonts.js'></script>
+<script src='js/dark.min.js'></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>
