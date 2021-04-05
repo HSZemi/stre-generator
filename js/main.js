@@ -44,6 +44,11 @@ function collectConfig() {
         throw new ValidationError('Bitte wähle einen Antragsgrund aus');
     }
 
+    const reasonOtherText = document.getElementById('reason-other-text').value;
+    if (reason === 'other' && !reasonOtherText) {
+        throw new ValidationError('Bitte beschreibe den sonstigen Grund, den du ausgewählt hast');
+    }
+
     const name = document.getElementById('input-name').value.trim();
     if (!name) {
         throw new ValidationError('Bitte gib deinen Namen ein');
@@ -73,7 +78,7 @@ function collectConfig() {
         throw new ValidationError('Bitte gib deine BIC ein');
     }
 
-    return {semester, reason, name, email, address, sendDecisionToAddress, bankName, iban, bic};
+    return {semester, reason, reasonOtherText, name, email, address, sendDecisionToAddress, bankName, iban, bic};
 }
 
 const semesterToString = (semester) => {
@@ -109,6 +114,8 @@ const reasonToString = (reason) => {
             return 'Promotion ohne Anwesenheit im Vertragsgebiet';
         case 'aav-familiaere-gruende':
             return 'Aufenthalt außerhalb des Vertragsgebietes wegen dringender familiärer Gründe';
+        case 'other':
+            return 'Sonstiger Grund';
     }
 }
 
@@ -187,6 +194,9 @@ const documentsToProvide = (config) => {
             break;
         case 'aav-familiaere-gruende':
             lines.push([{text: '[\u2002] Nachweis des Grundes', style: 'prooftable'}]);
+            break;
+        case 'other':
+            lines.push([{text: '[\u2002] geeignete Nachweise für den sonstigen Grund', style: 'prooftable'}]);
             break;
     }
 
@@ -284,6 +294,10 @@ const createDocDefinition = (config) => {
                                 style: {bold: true}
                             }],
                             style: 'reasonline',
+                        },
+                        {
+                            text: config.reason === 'other' ? config.reasonOtherText : '',
+                            style: 'reasonother',
                         },
                         {
                             text: config.sendDecisionToAddress ? 'Bitten senden Sie mir einen schriftlichen Bescheid an meine Meldeadresse.' : '\u00a0',
@@ -424,6 +438,11 @@ const createDocDefinition = (config) => {
             },
             reasonline: {
                 fontSize: 12,
+                margin: [0, 0, 0, 10],
+            },
+            reasonother: {
+                fontSize: 12,
+                italics: true,
                 margin: [0, 0, 0, 10],
             },
             senddecisiontoaddressline: {
