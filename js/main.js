@@ -482,6 +482,44 @@ const createApplication = () => {
 
 }
 
+const semesterSelector = (semester) => {
+    return `<div class="col-sm-6 col-md-4">
+            <div id="semester-${semester}" class="ms-card ms-border semester"
+                 onclick="selectSemester('${semester}')">
+                <div class="ms-card-content">
+                    ${semesterToString(semester)}
+                </div>
+            </div>
+        </div>`;
+}
+
+const getSelectableSemesters = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const june = 5;
+    if (month > june) {
+        return [`sose-${year}`, `wise-${year}`];
+    } else {
+        return [`wise-${year - 1}`, `sose-${year}`];
+    }
+}
+
+const createSemesterSelectors = () => {
+    const semesters = getSelectableSemesters();
+    const semesterSelection = document.getElementById('semester-selection');
+    semesterSelection.innerHTML = '';
+    for (let semester of semesters) {
+        semesterSelection.innerHTML += semesterSelector(semester);
+    }
+}
+
+const init = () => {
+    createSemesterSelectors();
+}
+
+init();
+
 const TOPLOGO = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAS4AAACVCAMAAADR5OdzAAAZZnpUWHRSYXcgcHJvZmlsZSB0eXBl
 IGV4aWYAAHjarZrpcVw5loX/w4oxAesFYA7WiPGgzZ/vICmVpFJ1V000KTHJzLcAdzkL8Nz51/9e
 9z98mbfmcqnNupnnK/fc4+CX5j9f/f0MPr+f7yuer9/Cz++7Xr5OiryVeE2fP+v4vIbB++WPE77d
