@@ -371,7 +371,6 @@ const createDocDefinition = (config) => {
                         },
                     ]
                 },
-                    {width: 'auto', qr: JSON.stringify(config), fit: '120', style: {alignment: 'center'}, margin: 10},
                 ]
             },
             {text: '\u00a0', style: 'spacer5'},
