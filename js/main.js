@@ -408,44 +408,7 @@ const createDocDefinition = (config) => {
                 text: 'Die Hinweise zur Antragstellung und zum Datenschutz habe ich zur Kenntnis genommen.',
                 style: 'declaration2'
             },
-            {
-                columns: [
-                    {
-                        width: '*', table: {
-                            widths: ['*'],
-                            body: [
-                                ['Ort, Datum'],
-                            ]
-                        },
-                        layout: {
-                            hLineWidth: function (i) {
-                                return i === 0 ? 2 : 0;
-                            },
-                            vLineWidth: function () {
-                                return 0;
-                            },
-                        }
-                    },
-                    {width: '*', text: ''},
-                    {
-                        width: '*', table: {
-                            widths: ['*'],
-                            body: [
-                                ['Unterschrift'],
-                            ]
-                        },
-                        layout: {
-                            hLineWidth: function (i) {
-                                return i === 0 ? 2 : 0;
-                            },
-                            vLineWidth: function () {
-                                return 0;
-                            },
-                        }
-                    },
-                ]
-            },
-
+            placeDateSignature(),
 
         ],
         styles: {
@@ -508,7 +471,7 @@ const createDocDefinition = (config) => {
             },
             declaration2: {
                 fontSize: 10,
-                margin: [0, 0, 0, 50],
+                margin: [0, 0, 0, 5],
             },
             icon: {font: 'FontAwesome'},
         },
@@ -516,6 +479,55 @@ const createDocDefinition = (config) => {
             toplogo: TOPLOGO,
         }
     };
+}
+
+
+const placeDateSignature = () => {
+    return {
+        columns: [
+            {
+                width: '*', table: {
+                    headerRows: 1,
+                    dontBreakRows: true,
+                    keepWithHeaderRows: true,
+                    widths: ['*'],
+                    body: [
+                        [{text: '\u00a0', style: {fontSize: 30}}],
+                        ['Ort, Datum'],
+                    ]
+                },
+                layout: {
+                    hLineWidth: function (i) {
+                        return i === 1 ? 2 : 0;
+                    },
+                    vLineWidth: function () {
+                        return 0;
+                    },
+                }
+            },
+            {width: 50, text: ''},
+            {
+                width: '*', table: {
+                    headerRows: 1,
+                    dontBreakRows: true,
+                    keepWithHeaderRows: true,
+                    widths: ['*'],
+                    body: [
+                        [{text: 'X', style: {fontSize: 30}}],
+                        ['Unterschrift'],
+                    ]
+                },
+                layout: {
+                    hLineWidth: function (i) {
+                        return i === 1 ? 2 : 0;
+                    },
+                    vLineWidth: function () {
+                        return 0;
+                    },
+                }
+            },
+        ]
+    }
 }
 
 const createApplication = () => {
