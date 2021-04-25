@@ -128,12 +128,15 @@ const formatIban = (iban) => {
 const documentsToProvide = (config) => {
     const lines = [
         [{text: 'Bitte folgende Nachweise beifügen:', style: 'prooftablebold'}],
-        [{text: '[\u2002] Kopie eines gültigen Personalausweises oder Reisepasses', style: 'prooftable'}],
+        [{
+            text: [{text: '\uf0c8 ', style: 'icon'}, 'Kopie eines gültigen Personalausweises oder Reisepasses'],
+            style: 'prooftable'
+        }],
     ];
 
     if (config.reason !== 'exmatrikulation') {
         lines.push([{
-            text: ['[\u2002] Kopie ',
+            text: [{text: '\uf0c8 ', style: 'icon'}, 'Kopie ',
                 {
                     text: 'beider Seiten',
                     style: 'bold'
@@ -149,54 +152,88 @@ const documentsToProvide = (config) => {
 
     switch (config.reason) {
         case 'verspaetete-immatrikulation':
-            lines.push([{text: '[\u2002] Immatrikulationsbescheinigung', style: 'prooftable'}]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Immatrikulationsbescheinigung'],
+                style: 'prooftable'
+            }]);
             break;
         case 'exmatrikulation':
-            lines.push([{text: '[\u2002] Exmatrikulationsbescheinigung', style: 'prooftable'}]);
-            lines.push([{text: '[\u2002] Nachweis über Zahlung des Semesterbeitrages', style: 'prooftable'}]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Exmatrikulationsbescheinigung'],
+                style: 'prooftable'
+            }]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Nachweis über Zahlung des Semesterbeitrages'],
+                style: 'prooftable'
+            }]);
             break;
         case 'beduerftigkeit':
-            lines.push([{text: '[\u2002] Belege über die Einkommens- und Vermögensverhältnisse', style: 'prooftable'}]);
-            lines.push([{text: '[\u2002] Belege über Miet- und Krankenversicherungskosten etc.', style: 'prooftable'}]);
-            lines.push([{text: '[\u2002] Formular 2', style: 'prooftablebold'}]);
+            lines.push([{
+                text: [{
+                    text: '\uf0c8 ',
+                    style: 'icon'
+                }, 'Belege über die Einkommens- und Vermögensverhältnisse'], style: 'prooftable'
+            }]);
+            lines.push([{
+                text: [{
+                    text: '\uf0c8 ',
+                    style: 'icon'
+                }, 'Belege über Miet- und Krankenversicherungskosten etc.'], style: 'prooftable'
+            }]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Formular 2'], style: 'prooftablebold'}]);
             break;
         case 'schwerbehinderung':
-            lines.push([{text: '[\u2002] Kopie eines amtlichen Schwerbehindertenausweises', style: 'prooftable'}]);
-            lines.push([{text: '[\u2002] Kopie der Wertmarken/ärztliches Attest', style: 'prooftable'}]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Kopie eines amtlichen Schwerbehindertenausweises'],
+                style: 'prooftable'
+            }]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Kopie der Wertmarken/ärztliches Attest'],
+                style: 'prooftable'
+            }]);
             break;
         case 'vrs-jobticket-vorhanden':
-            lines.push([{text: '[\u2002] Bescheinigung des VRS', style: 'prooftable'}]);
-            lines.push([{text: '[\u2002] Kopie des Jobtickets', style: 'prooftable'}]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Bescheinigung des VRS'], style: 'prooftable'}]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Kopie des Jobtickets'], style: 'prooftable'}]);
             break;
         case 'aav-studienbedingt':
-            lines.push([{text: '[\u2002] Beleg über den Aufenthalt (min. 3 Monate)', style: 'prooftable'}]);
-            lines.push([{text: '[\u2002] Formular 3', style: 'prooftablebold'}]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Beleg über den Aufenthalt (min. 3 Monate)'],
+                style: 'prooftable'
+            }]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Formular 3'], style: 'prooftablebold'}]);
             break;
         case 'aav-meisterschaft':
             lines.push([{
-                text: ['[\u2002] Teilnahmebestätigung (z.B. Anmeldungsbestätigung)\n', {
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'Teilnahmebestätigung (z.B. Anmeldungsbestätigung)\n', {
                     text: 'Die Teilnahmebescheinigung muss das Datum ihrer Übermittlung an die Antragstellerin erkennen lassen',
                     style: {italics: true}
                 }],
                 style: 'prooftable',
             }]);
-            lines.push([{text: '[\u2002] Formular 4', style: 'prooftablebold'}]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Formular 4'], style: 'prooftablebold'}]);
             lines.push([{
-                text: '[\u2002] Teilnahmeurkunde o.ä. (z.B. Siegerurkunde) (unaufgefordert nachzureichen)',
+                text: [{
+                    text: '\uf0c8 ',
+                    style: 'icon'
+                }, 'Teilnahmeurkunde o.ä. (z.B. Siegerurkunde) (unaufgefordert nachzureichen)'],
                 style: 'prooftable',
             }]);
             break;
         case 'aav-promotion':
-            lines.push([{text: '[\u2002] Formular 5', style: 'prooftablebold'}]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Formular 5'], style: 'prooftablebold'}]);
             break;
         case 'aav-abschlussarbeit':
-            lines.push([{text: '[\u2002] Formular 6', style: 'prooftablebold'}]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Formular 6'], style: 'prooftablebold'}]);
             break;
         case 'aav-familiaere-gruende':
-            lines.push([{text: '[\u2002] Nachweis des Grundes', style: 'prooftable'}]);
+            lines.push([{text: [{text: '\uf0c8 ', style: 'icon'}, 'Nachweis des Grundes'], style: 'prooftable'}]);
             break;
         case 'other':
-            lines.push([{text: '[\u2002] geeignete Nachweise für den sonstigen Grund', style: 'prooftable'}]);
+            lines.push([{
+                text: [{text: '\uf0c8 ', style: 'icon'}, 'geeignete Nachweise für den sonstigen Grund'],
+                style: 'prooftable'
+            }]);
             break;
     }
 
@@ -280,7 +317,7 @@ const createDocDefinition = (config) => {
             },
             {
                 columns: [{
-                    width: '*', stack: [
+                    width: 'auto', stack: [
                         {
                             text: ['Hiermit beantrage ich die Erstattung der Mobilitätskosten für das ', {
                                 text: semesterToString(config.semester),
@@ -300,7 +337,10 @@ const createDocDefinition = (config) => {
                             style: 'reasonother',
                         },
                         {
-                            text: config.sendDecisionToAddress ? 'Bitten senden Sie mir einen schriftlichen Bescheid an meine Meldeadresse.' : '\u00a0',
+                            text: config.sendDecisionToAddress ? [{
+                                text: '\uf058 ',
+                                style: 'icon'
+                            }, 'Bitten senden Sie mir einen schriftlichen Bescheid an meine Meldeadresse.'] : '',
                             style: 'senddecisiontoaddressline'
                         },
                         {text: 'Meine Bankverbindung', style: ''},
@@ -464,6 +504,7 @@ const createDocDefinition = (config) => {
                 fontSize: 10,
                 margin: [0, 0, 0, 50],
             },
+            icon: {font: 'FontAwesome'},
         },
         images: {
             toplogo: TOPLOGO,
@@ -475,6 +516,21 @@ const createApplication = () => {
     try {
         const config = collectConfig();
         const docDefinition = createDocDefinition(config);
+
+        pdfMake.fonts = {
+            Roboto: {
+                normal: 'Roboto-Regular.ttf',
+                bold: 'Roboto-Medium.ttf',
+                italics: 'Roboto-Italic.ttf',
+                bolditalics: 'Roboto-MediumItalic.ttf'
+            },
+            FontAwesome: {
+                normal: 'FontAwesome.otf',
+                bold: 'FontAwesome.otf',
+                italics: 'FontAwesome.otf',
+                bolditalics: 'FontAwesome.otf'
+            },
+        };
         pdfMake.createPdf(docDefinition).open();
     } catch (validationError) {
         alert(validationError.message);
