@@ -242,12 +242,19 @@ const documentsToProvide = (config) => {
 
 const createDocDefinition = (config) => {
     return {
+        pageSize: 'A4',
+        pageMargins: [40, 138, 40, 60],
+        header: {
+            margin: [40, 40, 40, 0],
+            stack: [
+                {image: 'toplogo', fit: [150, 150], style: 'logo'},
+                {
+                    text: 'Ausschuss für das Semesterticket, c/o AStA Bonn, Nassestr. 11, 53113 Bonn, Tel. 73-5874, stre@asta.uni-bonn.de',
+                    style: 'subtitle'
+                },
+            ]
+        },
         content: [
-            {image: 'toplogo', fit: [150, 150], style: 'logo'},
-            {
-                text: 'Ausschuss für das Semesterticket, c/o AStA Bonn, Nassestr. 11, 53113 Bonn, Tel. 73-5874, stre@asta.uni-bonn.de',
-                style: 'subtitle'
-            },
             {text: 'Antrag auf Erstattung des Mobilitätsbeitrages (Semesterticket)', style: 'title'},
             {
                 width: '*', table: {
