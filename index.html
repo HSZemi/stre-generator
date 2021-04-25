@@ -337,6 +337,185 @@
         </div>
     </div>
 
+    <div class="d-none" id="form-2">
+        <hr>
+
+        <h2><span class="ms-label ms-info">Schritt 4 von 3</span> Formular 2</h2>
+        <p>Du hast »Bedürftigkeit« als Grund für deinen Antrag ausgewählt.
+            War wohl doch nichts mit drei Schritten.
+            Damit dein Antrag geprüft werden kann, benötigen wir die folgenden Angaben von dir.</p>
+
+        <p>Du musst die folgenden Angaben <b>vollständig</b> machen.
+        <p>
+        <p>Für alles, wo du mehr als 0 € einträgst, musst du Belege einreichen.
+            Meistens sind das Kopien von Dokumenten.</p>
+        <p>Nummeriere die Belege durch und trage ihre Nummern in der entsprechende Zeile in das dafür vorgesehene Feld
+            ein.
+        </p>
+
+        <h4>Einkommen</h4>
+
+        <p>Trage in die folgende Tabelle ein, wie viel Geld du monatlich erhältst.</p>
+
+        <table class="ms-table">
+            <thead>
+            <tr>
+                <th>Kategorie</th>
+                <th>Betrag in €</th>
+                <th>Nachweisnummern</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Zuwendungen durch Eltern, Ehepartner*in oder andere Angehörige (insb. Kindergeld)</td>
+                <td><input value="0" id="input-2-income-family"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-income-family-proofs"/></td>
+            </tr>
+            <tr>
+                <td>Staatliche Zuwendungen (BAföG, Sozialhilfe, Kinder-, Wohngeld, o.ä.)</td>
+                <td><input value="0" id="input-2-income-government"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-income-government-proofs"/></td>
+            </tr>
+            <tr>
+                <td>Arbeitseinkünfte<br>
+                    <small>Falls dein monatliches Einkommen erheblich schwankt, füge bitte Nachweise für jeden einzelnen
+                        Monat im Antragszeitraum bei und trage hier den Mittelwert ein</small></td>
+                <td><input value="0" id="input-2-income-work"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-income-work-proofs"/></td>
+            </tr>
+            <tr>
+                <td>Sonstige Zuwendungen (Stipendien, Kapitalerträge etc.)</td>
+                <td><input value="0" id="input-2-income-other"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-income-other-proofs"/></td>
+            </tr>
+            <tr>
+                <td><b>Summe</b></td>
+                <td><input value="0" id="input-2-income-sum" disabled/></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Ausgaben</h4>
+
+
+        <p>Trage in die folgende Tabelle ein, wie viel Geld du monatlich für notwendige Dinge ausgibst.</p>
+
+        <table class="ms-table">
+            <thead>
+            <tr>
+                <th>Kategorie</th>
+                <th>Betrag in €</th>
+                <th>Nachweisnummern</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Miet- und Nebenkosten</td>
+                <td><input value="0" id="input-2-expenses-housing"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-expenses-housing-proofs"/></td>
+            </tr>
+            <tr>
+                <td>Krankenversicherung</td>
+                <td><input value="0" id="input-2-expenses-health-insurance"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-expenses-health-insurance-proofs"/></td>
+            </tr>
+            <tr>
+                <td>Sonstige Kosten<br><small>Beiträge zu freiwilligen Versicherungen und dem öffentlichen Rundfunk
+                    sowie Kosten für Strom und Internet können hier nicht aufgeführt werden</small></td>
+                <td><input value="0" id="input-2-expenses-other"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-expenses-other-proofs"/></td>
+            </tr>
+            <tr>
+                <td><b>Summe</b></td>
+                <td><input value="0" id="input-2-expenses-sum" disabled/></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <blockquote class="ms-blockquote">Somit sind rechnerisch monatlich <b id="form-2-result-amount">0 €</b>
+            anzurechnen (<span
+                    id="form-2-result-income">0</span> € monatliches Einkommen - <span
+                    id="form-2-result-expenses">0</span>
+            € monatliche Ausgaben)
+        </blockquote>
+
+
+        <h4>Vermögen</h4>
+
+        <p>Trage in die folgende Tabelle ein, wie viel Vermögen du aktuell besitzt.</p>
+
+        <table class="ms-table">
+            <thead>
+            <tr>
+                <th>Kategorie</th>
+                <th>Betrag in €</th>
+                <th>Nachweisnummern</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Spar-, Wertpapier- & sonstiges Vermögen</td>
+                <td><input value="0" id="input-2-wealth"/></td>
+                <td><input placeholder="1, 2, 3" id="input-2-wealth-proofs"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Kinder</h4>
+
+        <p>Hast du Kinder?</p>
+
+        <div class="ms-form-group-inline">
+            <input type="radio" name="input-2-children" id="input-2-children-select-no" checked>
+            <label for="input-2-children-select-no">Nein</label>
+            <input type="radio" name="input-2-children" id="input-2-children-select-yes">
+            <label for="input-2-children-select-yes">Ja, ich habe <input type="number" value="1" id="input-2-children"
+                                                                         style="width: 60px;"/>
+                Kind(er) – Nachweise: <input placeholder="1, 2, 3" id="input-2-children-proofs"/></label>
+        </div>
+
+        <h4>Bedarfsgemeinschaft</h4>
+
+        <p>Lebst du mit weiteren Personen in einer Bedarfsgemeinschaft?</p>
+
+
+        <div class="ms-form-group-inline">
+            <input type="radio" name="input-2-bedarfsgemeinschaft" id="input-2-bedarfsgemeinschaft-select-no" checked>
+            <label for="input-2-bedarfsgemeinschaft-select-no">Nein</label>
+            <input type="radio" name="input-2-bedarfsgemeinschaft" id="input-2-bedarfsgemeinschaft-select-yes">
+            <label for="input-2-bedarfsgemeinschaft-select-yes">Ja</label>
+        </div>
+
+        <div class="d-none" id="bedarfsgemeinschaft-details">
+            <p>Trage in die folgende Tabelle ein, wie viel Einkommen und Vermögen die andere(n) Person(en) deiner
+                Bedarfsgemeinschaft haben.</p>
+
+            <table class="ms-table">
+                <thead>
+                <tr>
+                    <th>Kategorie</th>
+                    <th>Betrag in €</th>
+                    <th>Nachweisnummern</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Einkommen</td>
+                    <td><input value="0" id="input-2-bedarfsgemeinschaft-income"/></td>
+                    <td><input placeholder="1, 2, 3" id="input-2-bedarfsgemeinschaft-income-proofs"/></td>
+                </tr>
+                <tr>
+                    <td>Vermögen</td>
+                    <td><input value="0" id="input-2-bedarfsgemeinschaft-wealth"/></td>
+                    <td><input placeholder="1, 2, 3" id="input-2-bedarfsgemeinschaft-wealth-proofs"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <hr>
 
     <h4>Antrag erstellen</h4>
@@ -345,7 +524,9 @@
         Diesen kannst du dann ausdrucken, unterschreiben, und uns per Post zusenden.<br>
         Ja, wir sind voll digitalisiert 🤪</p>
 
-    <button class="ms-btn ms-large" onclick="createApplication()">Erstelle meinen Antrag, damit ich ihn ausdrucken und per Post schicken kann</button>
+    <button class="ms-btn ms-large" onclick="createApplication()">Erstelle meinen Antrag, damit ich ihn ausdrucken und
+        per Post schicken kann
+    </button>
 
 </div>
 <script src="js/pdfmake.min.js"></script>

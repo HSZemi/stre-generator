@@ -9,6 +9,11 @@ const selectReason = (reason) => {
         element.classList.remove('selected');
     }
     document.getElementById('reason-' + reason).classList.add('selected');
+    if (reason === 'beduerftigkeit') {
+        show('form-2');
+    } else {
+        hide('form-2');
+    }
 }
 const getSelectedSemester = () => {
     for (let element of document.getElementsByClassName('semester')) {
@@ -79,6 +84,100 @@ function collectConfig() {
     }
 
     return {semester, reason, reasonOtherText, name, email, address, sendDecisionToAddress, bankName, iban, bic};
+}
+
+function collectForm2Config() {
+    const incomeFamily = parseFloat(document.getElementById('input-2-income-family').value);
+    const incomeFamilyProofs = document.getElementById('input-2-income-family-proofs').value;
+    if (incomeFamily > 0 && incomeFamilyProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Einkommen - Zuwendungen durch Eltern…" ein');
+    }
+    const incomeGovernment = parseFloat(document.getElementById('input-2-income-government').value);
+    const incomeGovernmentProofs = document.getElementById('input-2-income-government-proofs').value;
+    if (incomeGovernment > 0 && incomeGovernmentProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Staatliche Zuwendungen" ein');
+    }
+    const incomeWork = parseFloat(document.getElementById('input-2-income-work').value);
+    const incomeWorkProofs = document.getElementById('input-2-income-work-proofs').value;
+    if (incomeWork > 0 && incomeWorkProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Arbeitseinkünfte" ein');
+    }
+    const incomeOther = parseFloat(document.getElementById('input-2-income-other').value);
+    const incomeOtherProofs = document.getElementById('input-2-income-other-proofs').value;
+    if (incomeOther > 0 && incomeOtherProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Sonstige Zuwendungen" ein');
+    }
+    const income = {
+        family: {value: incomeFamily, proofs: incomeFamilyProofs},
+        government: {value: incomeGovernment, proofs: incomeGovernmentProofs},
+        work: {value: incomeWork, proofs: incomeWorkProofs},
+        other: {value: incomeOther, proofs: incomeOtherProofs},
+        sum: incomeFamily + incomeGovernment + incomeWork + incomeOther,
+    }
+
+    const expensesHousing = parseFloat(document.getElementById('input-2-expenses-housing').value);
+    const expensesHousingProofs = document.getElementById('input-2-expenses-housing-proofs').value;
+    if (expensesHousing > 0 && expensesHousingProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Miet- und Nebenkosten" ein');
+    }
+    const expensesHealthInsurance = parseFloat(document.getElementById('input-2-expenses-health-insurance').value);
+    const expensesHealthInsuranceProofs = document.getElementById('input-2-expenses-health-insurance-proofs').value;
+    if (expensesHealthInsurance > 0 && expensesHealthInsuranceProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Krankenversicherung" ein');
+    }
+    const expensesOther = parseFloat(document.getElementById('input-2-expenses-other').value);
+    const expensesOtherProofs = document.getElementById('input-2-expenses-other-proofs').value;
+    if (expensesOther > 0 && expensesOtherProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Sonstige Kosten" ein');
+    }
+
+    const expenses = {
+        housing: {value: expensesHousing, proofs: expensesHousingProofs},
+        healthInsurance: {value: expensesHealthInsurance, proofs: expensesHealthInsuranceProofs},
+        other: {value: expensesOther, proofs: expensesOtherProofs},
+        sum: expensesHousing + expensesHealthInsurance + expensesOther,
+    }
+
+    const wealthAmount = parseFloat(document.getElementById('input-2-wealth').value);
+    const wealthProofs = document.getElementById('input-2-wealth-proofs').value;
+    if (wealthAmount > 0 && wealthProofs === '') {
+        throw new ValidationError('Bitte gib deine Nachweisnummern für "Vermögen" ein');
+    }
+    const wealth = {value: wealthAmount, proofs: wealthProofs};
+
+    const hasChildren = document.getElementById('input-2-children-select-yes').checked;
+    let children;
+    if (hasChildren) {
+        const numberOfChildren = parseInt(document.getElementById('input-2-children').value);
+        const childrenProofs = document.getElementById('input-2-children-proofs').value;
+        if (numberOfChildren <= 0) {
+            throw new ValidationError('Bitte gib eine positive Anzahl an Kindern an, oder wähle aus, dass du keine Kinder hast');
+        } else if (childrenProofs === '') {
+            throw new ValidationError('Bitte gib deine Nachweisnummern für "Kinder" ein');
+        }
+        children = {value: numberOfChildren, proofs: childrenProofs};
+    }
+
+    const hasBedarfsgemeinschaft = document.getElementById('input-2-bedarfsgemeinschaft-select-yes').checked;
+    let bedarfsgemeinschaft;
+    if (hasBedarfsgemeinschaft) {
+        const bedarfsgemeinschaftIncome = parseFloat(document.getElementById('input-2-bedarfsgemeinschaft-income').value);
+        const bedarfsgemeinschaftIncomeProofs = document.getElementById('input-2-bedarfsgemeinschaft-income-proofs').value;
+        if (bedarfsgemeinschaftIncome > 0 && bedarfsgemeinschaftIncomeProofs === '') {
+            throw new ValidationError('Bitte gib deine Nachweisnummern für "Bedarfsgemeinschaft - Einkommen" ein');
+        }
+        const bedarfsgemeinschaftWealth = parseFloat(document.getElementById('input-2-bedarfsgemeinschaft-wealth').value);
+        const bedarfsgemeinschaftWealthProofs = document.getElementById('input-2-bedarfsgemeinschaft-wealth-proofs').value;
+        if (bedarfsgemeinschaftWealth > 0 && bedarfsgemeinschaftWealthProofs === '') {
+            throw new ValidationError('Bitte gib deine Nachweisnummern für "Bedarfsgemeinschaft - Vermögen" ein');
+        }
+        bedarfsgemeinschaft = {
+            income: {value: bedarfsgemeinschaftIncome, proofs: bedarfsgemeinschaftIncomeProofs},
+            wealth: {value: bedarfsgemeinschaftWealth, proofs: bedarfsgemeinschaftWealthProofs},
+        };
+    }
+
+    return {income, expenses, wealth, children, bedarfsgemeinschaft};
 }
 
 const semesterToString = (semester) => {
@@ -409,6 +508,7 @@ const createDocDefinition = (config) => {
                 style: 'declaration2'
             },
             placeDateSignature(),
+            optionalForm2(config),
 
         ],
         styles: {
@@ -473,6 +573,30 @@ const createDocDefinition = (config) => {
                 fontSize: 10,
                 margin: [0, 0, 0, 5],
             },
+            form2TableHeader: {
+                bold: true,
+            },
+            form2TableHeaderNumber: {
+                bold: true,
+                alignment: 'right',
+            },
+            form2Table: {
+                fontSize: 10,
+            },
+            form2TableNumber: {
+                fontSize: 10,
+                alignment: 'right',
+            },
+            form2Category: {
+                margin: [0, 10, 0, 5],
+            },
+            form2AdditionalDeclaration: {
+                margin: [0, 10, 0, 0],
+            },
+            declaration3: {
+                fontSize: 10,
+                margin: [0, 10, 0, 5],
+            },
             icon: {font: 'FontAwesome'},
         },
         images: {
@@ -481,6 +605,209 @@ const createDocDefinition = (config) => {
     };
 }
 
+const optionalForm2 = (config) => {
+    if (config.reason !== 'beduerftigkeit') {
+        return undefined;
+    }
+    const form2config = collectForm2Config();
+    return {
+        stack: [
+            {text: 'Formular 2\nErklärung über Einkommen und Aufwendungen', style: 'title', pageBreak: 'before'},
+            {
+                text: ['Mein monatliches ', {
+                    text: 'Einkommen',
+                    style: 'bold'
+                }, ' setzt sich derzeit wie folgt zusammen:'],
+                style: 'form2Category',
+            },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: ['*', 60, 100],
+                    body: [
+                        [{text: 'Kategorie', style: 'form2TableHeader'}, {
+                            text: 'Betrag',
+                            style: 'form2TableHeaderNumber'
+                        }, {text: 'Nachweise', style: 'form2TableHeader'}],
+                        [
+                            {
+                                text: 'Zuwendungen durch Eltern, Ehepartner*in oder andere Angehörige (insb. Kindergeld)',
+                                style: 'form2Table'
+                            },
+                            {text: formatEuro(form2config.income.family.value), style: 'form2TableNumber'},
+                            {text: form2config.income.family.proofs, style: 'form2Table'},
+                        ],
+                        [
+                            {
+                                text: 'Staatliche Zuwendungen (BAföG, Sozialhilfe, Kinder-, Wohngeld, o.ä.)',
+                                style: 'form2Table'
+                            },
+                            {text: formatEuro(form2config.income.government.value), style: 'form2TableNumber'},
+                            {text: form2config.income.government.proofs, style: 'form2Table'},
+                        ],
+                        [
+                            {text: 'Arbeitseinkünfte', style: 'form2Table'},
+                            {text: formatEuro(form2config.income.work.value), style: 'form2TableNumber'},
+                            {text: form2config.income.work.proofs, style: 'form2Table'}
+                        ],
+                        [
+                            {text: 'Sonstige Zuwendungen (Stipendien, Kapitalerträge etc.)', style: 'form2Table'},
+                            {text: formatEuro(form2config.income.other.value), style: 'form2TableNumber'},
+                            {text: form2config.income.other.proofs, style: 'form2Table'},
+                        ],
+                        [
+                            {text: 'Summe', style: 'bold'},
+                            {
+                                text: formatEuro(form2config.income.sum),
+                                style: 'form2TableHeaderNumber',
+                            },
+                            ''
+                        ],
+                    ]
+                },
+                layout: {
+                    hLineWidth: function (i, node) {
+                        return (i === 1 || i === node.table.body.length - 1) ? 1 : 0;
+                    },
+                    vLineWidth: function () {
+                        return 0;
+                    },
+                },
+            },
+            {
+                text: ['Meine monatlichen ', {
+                    text: 'Aufwendungen',
+                    style: 'bold'
+                }, ' setzen sich derzeit wie folgt zusammen:'],
+                style: 'form2Category',
+            },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: ['*', 60, 100],
+                    body: [
+                        [{text: 'Kategorie', style: 'form2TableHeader'}, {
+                            text: 'Betrag',
+                            style: 'form2TableHeaderNumber'
+                        }, {text: 'Nachweise', style: 'form2TableHeader'}],
+                        [
+                            {text: 'Miet- und Nebenkosten', style: 'form2Table'},
+                            {text: formatEuro(form2config.expenses.housing.value), style: 'form2TableNumber'},
+                            {text: form2config.expenses.housing.proofs, style: 'form2Table'},
+                        ],
+                        [
+                            {text: 'Krankenversicherung', style: 'form2Table'},
+                            {text: formatEuro(form2config.expenses.healthInsurance.value), style: 'form2TableNumber'},
+                            {text: form2config.expenses.healthInsurance.proofs, style: 'form2Table'},
+                        ],
+                        [
+                            {text: 'Sonstige Kosten', style: 'form2Table'},
+                            {text: formatEuro(form2config.expenses.other.value), style: 'form2TableNumber'},
+                            {text: form2config.expenses.other.proofs, style: 'form2Table'},
+                        ],
+                        [
+                            {text: 'Summe', style: 'bold'},
+                            {
+                                text: formatEuro(form2config.expenses.sum),
+                                style: 'form2TableHeaderNumber',
+                            },
+                            ''
+                        ],
+                    ]
+                },
+                layout: {
+                    hLineWidth: function (i, node) {
+                        return (i === 1 || i === node.table.body.length - 1) ? 1 : 0;
+                    },
+                    vLineWidth: function () {
+                        return 0;
+                    },
+                },
+            }, {
+                text: ['Mein ', {
+                    text: 'Vermögen',
+                    style: 'bold'
+                }, ' beträgt derzeit:'],
+                style: 'form2Category',
+            },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: ['*', 60, 100],
+                    body: [
+                        [{text: 'Kategorie', style: 'form2TableHeader'}, {
+                            text: 'Betrag',
+                            style: 'form2TableHeaderNumber'
+                        }, {text: 'Nachweise', style: 'form2TableHeader'}],
+                        [
+                            {text: 'Spar-, Wertpapier- & sonstiges Vermögen', style: 'form2Table'},
+                            {text: formatEuro(form2config.wealth.value), style: 'form2TableNumber'},
+                            {text: form2config.wealth.proofs, style: 'form2Table'},
+                        ],
+                    ]
+                },
+                layout: {
+                    hLineWidth: function (i, node) {
+                        return (i === 1 || i === node.table.body.length - 1) ? 1 : 0;
+                    },
+                    vLineWidth: function () {
+                        return 0;
+                    },
+                },
+            },
+            optionalChildren(form2config),
+            optionalBedarfsgemeinschaft(form2config),
+            {
+                text: 'Ich versichere hiermit, dass ich die Angaben in diesem Formular nach bestem Wissen und Gewissen vollständig und wahrheitsgemäß gemacht habe. Mir ist bekannt, dass bewusst unrichtige oder unvollständige Angaben zur Ablehnung und Rückforderung sowie zu zivil- oder strafrechtlichen Konsequenzen führen können.',
+                style: 'declaration3',
+            },
+            placeDateSignature(),
+        ]
+    };
+}
+
+const optionalChildren = (config) => {
+    if (!config.children) {
+        return undefined;
+    }
+    const text = config.children.value === 1 ? '1 Kind' : `${config.children.value} Kinder`;
+    return {
+        text: [{text: '\uf058 ', style: 'icon'},
+            'Ich habe für ',
+            {
+                text: text,
+                style: 'bold'
+            },
+            ' im Haushalt aufzukommen (Nachweise: ',
+            config.children.proofs,
+            ')'],
+        style: 'form2AdditionalDeclaration',
+    }
+}
+
+const optionalBedarfsgemeinschaft = (config) => {
+    if (!config.bedarfsgemeinschaft) {
+        return undefined;
+    }
+    return {
+        text: [{text: '\uf058 ', style: 'icon'},
+            'Ich lebe mit weiteren Personen in einer Bedarfsgemeinschaft. Deren monatliches Einkommen beträgt ',
+            {
+                text: formatEuro(config.bedarfsgemeinschaft.income.value),
+                style: 'bold'
+            },
+            ' (Nachweise: ',
+            config.bedarfsgemeinschaft.income.proofs,
+            ') und deren aktuelles Vermögen beträgt ',
+            {
+                text: formatEuro(config.bedarfsgemeinschaft.wealth.value),
+                style: 'bold'
+            }, ' (Nachweise: ',
+            config.bedarfsgemeinschaft.wealth.proofs,
+            ')'],
+        style: 'form2AdditionalDeclaration',
+    }
+}
 
 const placeDateSignature = () => {
     return {
@@ -588,8 +915,78 @@ const createSemesterSelectors = () => {
     }
 }
 
+const incomeIds = ['input-2-income-family', 'input-2-income-government', 'input-2-income-work', 'input-2-income-other'];
+const expensesIds = ['input-2-expenses-housing', 'input-2-expenses-health-insurance', 'input-2-expenses-other'];
+const createForm2Callbacks = () => {
+    for (let incomeId of incomeIds) {
+        document.getElementById(incomeId).onkeyup = () => {
+            updateCategorySum(incomeIds, 'input-2-income-sum');
+        }
+    }
+    for (let expensesId of expensesIds) {
+        document.getElementById(expensesId).onkeyup = () => {
+            updateCategorySum(expensesIds, 'input-2-expenses-sum');
+        }
+    }
+    document.getElementById('input-2-bedarfsgemeinschaft-select-no').onclick = () => {
+        hide('bedarfsgemeinschaft-details');
+    }
+    document.getElementById('input-2-bedarfsgemeinschaft-select-yes').onclick = () => {
+        show('bedarfsgemeinschaft-details');
+    }
+}
+
+const updateCategorySum = (ids, sumId) => {
+    try {
+        let sum = 0;
+        for (let elementId of ids) {
+            const value = document.getElementById(elementId).value.replace(',', '.');
+            const floatValue = value === '' ? 0 : parseFloat(value);
+            sum += floatValue;
+        }
+        if (isNaN(sum)) {
+            document.getElementById(sumId).value = '?';
+        } else {
+            document.getElementById(sumId).value = sum.toFixed(2).replace('.', ',');
+        }
+    } catch (e) {
+        document.getElementById(sumId).value = '?';
+    }
+    updateResultValues();
+}
+
+const updateResultValues = () => {
+    const income = document.getElementById('input-2-income-sum').value;
+    const expenses = document.getElementById('input-2-expenses-sum').value;
+    document.getElementById('form-2-result-income').innerText = income;
+    document.getElementById('form-2-result-expenses').innerText = expenses;
+    try {
+        const result = parseFloat(income.replace(',', '.')) - parseFloat(expenses.replace(',', '.'));
+        if (isNaN(result)) {
+            document.getElementById('form-2-result-amount').innerText = '?';
+        } else {
+            document.getElementById('form-2-result-amount').innerText = formatEuro(result);
+        }
+    } catch (e) {
+        document.getElementById('form-2-result-amount').innerText = '?';
+    }
+}
+
+const formatEuro = (value) => {
+    return `${value.toFixed(2).replace('.', ',')} €`;
+}
+
+const show = (elementId) => {
+    document.getElementById(elementId).classList.remove('d-none');
+}
+
+const hide = (elementId) => {
+    document.getElementById(elementId).classList.add('d-none');
+}
+
 const init = () => {
     createSemesterSelectors();
+    createForm2Callbacks();
 }
 
 init();
